@@ -1,0 +1,15 @@
+from gtts import gTTS
+import os
+
+def text_to_telugu_audio(text, filename="output_telugu.mp3"):
+    # Initialize gTTS with the provided text and Telugu languageA
+    tts = gTTS(text=text, lang="te", slow=False)
+    
+    # Save the audio file
+    tts.save(filename)
+    
+    print(f"Audio file saved as {filename}")
+
+# Example usage
+text = input()  # This text will be read in Telugu
+text_to_telugu_audio(text, "example_audio.mp3")

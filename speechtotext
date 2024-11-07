@@ -1,0 +1,28 @@
+import speech_recognition as sr
+
+def record_and_convert_to_text():
+    recognizer = sr.Recognizer()
+    
+    # Use the microphone as the audio source
+    with sr.Microphone() as source:
+        print("Please speak into the microphone...")
+        recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
+        audio_data = recognizer.listen(source)  # Capture audio data
+
+    # Save the audio data to a file
+    audio_file = "recorded_audio.wav"
+    with open(audio_file, "wb") as f:
+        f.write(audio_data.get_wav_data())
+
+    # Convert the audio to text using Google Web Speech API
+    try:
+        print("Converting audio to text...")
+        text = recognizer.recognize_google(audio_data)
+        print("Transcription:", text)
+    except sr.UnknownValueError:
+        print("Sorry, I could not understand the audio.")
+    except sr.RequestError as e:
+        print(f"Could not request results; {e}")
+
+# Run the function
+record_and_convert_to_text()
